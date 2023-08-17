@@ -352,7 +352,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
 
   Future<void> _changeCountry() async {
     filteredCountries = _countryList;
-    var height = MediaQuery.of(context).size.height * 0.3;
+    var height = MediaQuery.of(context).size.height * 0.45;
     await showModalBottomSheet(
       context: context,
 
