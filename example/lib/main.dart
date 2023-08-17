@@ -55,11 +55,26 @@ class _MyAppState extends State<MyApp> {
                 ),
                 IntlPhoneField(
                   focusNode: focusNode,
+                  titleWidget: Container(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        child: Text("hola"),
+                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.close))
+                    ],
+                  )),
                   decoration: InputDecoration(
                     labelText: 'Phone Number',
                     border: OutlineInputBorder(
                       borderSide: BorderSide(),
                     ),
+
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    hintText: "091270197",
+                    hintStyle: TextStyle(color: Colors.green),
+                    // prefixStyle: TextStyle(color: Colors.transparent),
                   ),
                   languageCode: "en",
                   onChanged: (phone) {

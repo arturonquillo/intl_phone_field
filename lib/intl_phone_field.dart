@@ -243,6 +243,8 @@ class IntlPhoneField extends StatefulWidget {
   //enable the autofill hint for phone number
   final bool disableAutoFillHints;
 
+  final Widget? titleWidget;
+
   const IntlPhoneField({
     Key? key,
     this.initialCountryCode,
@@ -288,6 +290,7 @@ class IntlPhoneField extends StatefulWidget {
     this.showCursor = true,
     this.pickerDialogStyle,
     this.flagsButtonMargin = EdgeInsets.zero,
+    this.titleWidget,
   }) : super(key: key);
 
   @override
@@ -349,15 +352,20 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
 
   Future<void> _changeCountry() async {
     filteredCountries = _countryList;
-    await showDialog(
+    var height = MediaQuery.of(context).size.height * 0.3;
+    await showModalBottomSheet(
       context: context,
-      useRootNavigator: false,
+
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+      // useRootNavigator: false,
+      constraints: BoxConstraints(maxHeight: height),
       builder: (context) => StatefulBuilder(
         builder: (ctx, setState) => CountryPickerDialog(
           languageCode: widget.languageCode.toLowerCase(),
           style: widget.pickerDialogStyle,
           filteredCountries: filteredCountries,
           searchText: widget.searchText,
+          titleWidget: widget.titleWidget,
           countryList: _countryList,
           selectedCountry: _selectedCountry,
           onCountryChanged: (Country country) {
