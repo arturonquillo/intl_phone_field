@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/helpers.dart';
 
@@ -353,13 +354,8 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
   Future<void> _changeCountry() async {
     filteredCountries = _countryList;
     var height = MediaQuery.of(context).size.height * 0.45;
-    await showModalBottomSheet(
-      context: context,
-
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
-      // useRootNavigator: false,
-      constraints: BoxConstraints(maxHeight: height),
-      builder: (context) => StatefulBuilder(
+    await Get.bottomSheet(
+      StatefulBuilder(
         builder: (ctx, setState) => CountryPickerDialog(
           languageCode: widget.languageCode.toLowerCase(),
           style: widget.pickerDialogStyle,
@@ -375,6 +371,12 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
           },
         ),
       ),
+      // context: context,
+      // isScrollControlled: true,
+
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+      useRootNavigator: true,
+      // constraints: BoxConstraints(maxHeight: height),
     );
     if (mounted) setState(() {});
   }
@@ -398,7 +400,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       showCursor: widget.showCursor,
       onFieldSubmitted: widget.onSubmitted,
       decoration: widget.decoration.copyWith(
-        prefix: _buildFlagsButton(),
+        prefixIcon: _buildFlagsButton(),
         counterText: !widget.enabled ? '' : null,
       ),
       style: widget.style,
